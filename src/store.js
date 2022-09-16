@@ -1,0 +1,21 @@
+import { getStorageItem, setStorageItem } from './utils.js';
+// let store = [];
+let store = getStorageItem('store');
+const setupStore = (products) => {
+  store = products.map((product) => {
+    const {
+      id,
+      fields: { featured, name, price, company, colors, image: img },
+    } = product;
+    const image = img[0].thumbnails.large.url;
+    // const { url: image } = img[0].thumbnails.large;
+    // returns an object with only data that we need
+    return { id, featured, name, price, company, colors, image };
+  });
+  setStorageItem('store', store);
+};
+// console.log(store); // WHEN we do let store = [], this will be an empty array since we haven't called setupStore() yet. BUT if we get data from localStorage, it won't be empty any more (line 13: let store = getStorageItem('store'); )
+// console.log('hello);
+// The way modules work, once you import module (regardless, named or default), if you have function invocation - for example console.log('hello') - that code will be automatically executed => this is why line 14 will be invoked as soon as we import the store from store.js to app.js
+const findProduct = () => {};
+export { store, setupStore, findProduct };
