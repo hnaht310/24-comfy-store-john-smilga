@@ -1,6 +1,7 @@
 import { getStorageItem, setStorageItem } from './utils.js';
 // let store = [];
-let store = getStorageItem('store');
+let store = getStorageItem('store'); // this will be empty when we first open the home page because there's nothing saved in local storage yet.
+// When calling setupStore, the store variable is assigned with an array we get from mapping a list of products anyway
 const setupStore = (products) => {
   store = products.map((product) => {
     const {

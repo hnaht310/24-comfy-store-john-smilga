@@ -17,8 +17,13 @@ const getElement = (selection) => {
   );
 };
 
+// Intl.NumberFormat() creates an Intl.NumberFormat objects that enable language-sensitive number formatting
 const formatPrice = (price) => {
-  return price / 100;
+  let formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format((price / 100).toFixed(2));
+  return formattedPrice;
 };
 
 const getStorageItem = (key) => {

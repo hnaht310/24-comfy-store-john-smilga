@@ -14,7 +14,7 @@ const init = async () => {
   //   if product is not undefined or null
   if (products) {
     setupStore(products);
-    console.log(store); // If in store.js we set store variable = [], since this is logged after setupStore() is called, it will always show all products. (setupStore(products) make changes to the store variable. Store variable will no long be empty. It doesn't return anything though)
+    console.log(store); // If in store.js we set store variable = [], since this is logged after setupStore() is called, it will always show all products. (setupStore(products) make changes to the store variable. Store variable will no longer be empty. It doesn't return anything though)
   }
   const featured = store.filter((product) => {
     return product.featured === true;
