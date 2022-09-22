@@ -3,7 +3,7 @@ import display from '../displayProducts.js';
 
 const setupCompanies = (products) => {
   const companiesDOM = getElement('.companies');
-  console.log(products);
+  // console.log(products);
   //   Using reduce() to get list of unique companies
   //   let companiesList = products.reduce(
   //     (newArr, currProd) => {
@@ -21,7 +21,7 @@ const setupCompanies = (products) => {
     'all',
     ...new Set(products.map((product) => product.company)),
   ];
-  console.log(companiesList);
+  // console.log(companiesList);
   companiesDOM.innerHTML = companiesList
     .map((company) => {
       return `<button class="company-btn">${company}</button>`;

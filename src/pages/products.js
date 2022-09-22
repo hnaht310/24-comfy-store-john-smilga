@@ -27,6 +27,7 @@ const loading = getElement('.page-loading');
 
 // get product list from localStorage -> the data is automatically pulled as soon as we import store variable from store.js
 // so now we just need to display them
+
 display(store, getElement('.products-container'));
 setupSearch(store);
 setupCompanies(store);
