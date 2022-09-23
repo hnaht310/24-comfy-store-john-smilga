@@ -11,13 +11,12 @@ const fetchProducts = async () => {
   } catch (err) {
     console.log(err);
   }
-
   //  -------------- John's approach
-  //   const response = await fetch(allProductsUrl).catch((err) => console.log(err));
-  //   if (response) {
-  //     return response.json();
-  //   }
-  //   return response;
+  // const response = await fetch(allProductsUrl).catch((err) => console.log(err));
+  // if (response) {
+  //   return response.json();
+  // }
+  // return response;
 };
 
 export default fetchProducts;
