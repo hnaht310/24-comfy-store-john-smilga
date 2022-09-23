@@ -76,38 +76,23 @@ function increaseAmount(id) {
     }
   });
   return newAmount;
+}
 
-  // console.log(cart);
-  // // setStorageItem('cart', cart);
-  // getElement('.cart-items').innerHTML = cart
-  //   .map((singleProduct) => {
-  //     return `<article class="cart-item" data-id=${singleProduct.id}>
-  //       <img
-  //         src=${singleProduct.image}
-  //         alt=${singleProduct.name}
-  //         class="cart-item-img"
-  //       />
-  //       <!-- item info -->
-  //       <div>
-  //         <h4 class="cart-item-name">${singleProduct.name}</h4>
-  //         <p class="cart-item-price">${formatPrice(singleProduct.price)}</p>
-  //         <button class="cart-item-remove-btn" data-id=${
-  //           singleProduct.id
-  //         }>remove</button>
-  //       </div>
-  //       <!-- amount toggle -->
-  //       <div>
-  //         <button class="cart-item-increase-btn" data-id=${singleProduct.id}>
-  //           <i class="fas fa-chevron-up"></i>
-  //         </button>
-  //         <p class="cart-item-amount">${singleProduct.amount}</p>
-  //         <button class="cart-item-decrease-btn" data-id=${singleProduct.id}>
-  //           <i class="fas fa-chevron-down"></i>
-  //         </button>
-  //       </div>
-  //     </article>`;
-  //   })
-  //   .join('');
+function decreaseAmount(id) {
+  let newAmount;
+  cart = cart.map((item) => {
+    if (item.id === id) {
+      newAmount = item.amount - 1;
+      return { ...item, amount: newAmount };
+    }
+    return item;
+  });
+  return newAmount;
+}
+
+// remove item from cart array
+function removeItem(id) {
+  cart = cart.filter((item) => item.id !== id);
 }
 
 function displayCartItemCount() {
@@ -128,7 +113,48 @@ function displayCartTotal() {
 function displayCartItemDOM() {
   cart.forEach((item) => addToCartDOM(item));
 }
-function setupCartFunctionality() {}
+function setupCartFunctionality() {
+  cartItemsDOM.addEventListener('click', (e) => {
+    const element = e.target;
+    // console.log(element);
+    const parent = e.target.parentElement;
+    // console.log(parent);
+    const id = e.target.dataset.id;
+    const parentID = parent.dataset.id;
+    // console.log(element);
+    // remove
+    // console.log(cart);
+    if (element.classList.contains('cart-item-remove-btn')) {
+      removeItem(id);
+      // console.log(cart);
+      element.closest('.cart-item').remove();
+    }
+    // increase
+    if (parent.classList.contains('cart-item-increase-btn')) {
+      // let quantity = parent.nextElementSibling.textContent;
+      // parent.nextElementSibling.textContent = +quantity + 1;
+      let newAmount = increaseAmount(parentID);
+      parent.nextElementSibling.textContent = newAmount;
+    }
+    // decrease
+    if (parent.classList.contains('cart-item-decrease-btn')) {
+      const newAmount = decreaseAmount(parentID);
+      if (newAmount < 1) {
+        removeItem(parentID); // remove item from cart array
+        parent.closest('.cart-item').remove(); // remove item from the cartDOM
+      } else {
+        parent.previousElementSibling.textContent = newAmount;
+      }
+
+      console.log(cart);
+    }
+
+    // we'll run these 3 functions regardless of what element is clicked on
+    displayCartItemCount();
+    displayCartTotal();
+    setStorageItem('cart', cart); // update cart in local storage
+  });
+}
 
 const init = () => {
   // display number of cart items
